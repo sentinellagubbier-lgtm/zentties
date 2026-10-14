@@ -1,0 +1,51 @@
+{% from "_iconos.html" import icono %}
+{% extends "base.html" %}
+{% block titulo %}Iniciar sesión · ZENNTIES{% endblock %}
+{% block fondo %}
+<canvas id="fondoGrid" aria-hidden="true"></canvas>
+<div class="zn-veil" aria-hidden="true"></div>
+{% endblock %}
+{% block navegacion %}{% endblock %}
+{% block pie %}{% endblock %}
+{% block contenido %}
+<section class="zn-auth">
+  <div class="zn-auth-card zn-enter">
+    <a class="zn-logo" href="{{ url_for('portada') }}" aria-label="Volver al inicio">
+      <span class="zn-logo-mark">Z</span><span class="zn-logo-text">ZENNTIES</span>
+    </a>
+    <h1>Iniciar sesión</h1>
+    <p class="zn-muted mb-4">Bienvenido de nuevo.</p>
+
+    <form id="form-login" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="correoLogin">Correo electrónico</label>
+        <input class="form-control" id="correoLogin" type="email" placeholder="correo@ejemplo.com" autocomplete="email" required>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="contrasenaLogin">Contraseña</label>
+        <div class="zn-pass">
+          <input class="form-control" id="contrasenaLogin" type="password" placeholder="Escribe tu contraseña" autocomplete="current-password" required>
+          <button id="mostrarContrasena" type="button" aria-label="Mostrar contraseña">{{ icono('ojo', 20) }}</button>
+        </div>
+      </div>
+      <button id="botonLogin" class="btn btn-zn w-100 btn-lg" type="submit">Iniciar sesión</button>
+      <p id="mensajeLogin" role="alert" aria-live="polite"></p>
+    </form>
+
+    <p class="text-center mb-0 mt-2 zn-muted">¿No tienes cuenta? <a href="{{ url_for('register') }}">Crear cuenta</a></p>
+    <p class="text-center mb-0 mt-2"><a class="zn-muted" href="{{ url_for('tienda') }}">Ver la tienda sin iniciar sesión</a></p>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/fondo-grid.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script>
+  const b = document.querySelector("#mostrarContrasena"), c = document.querySelector("#contrasenaLogin");
+  b.addEventListener("click", () => {
+    const oculta = c.type === "password";
+    c.type = oculta ? "text" : "password";
+    b.setAttribute("aria-label", oculta ? "Ocultar contraseña" : "Mostrar contraseña");
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% from "_iconos.html" import icono %}
+{% extends "base.html" %}
+{% block titulo %}ZENNTIES · Páginas, juegos y diseños de interfaz{% endblock %}
+{% block fondo %}
+<canvas id="fondoGrid" aria-hidden="true"></canvas>
+<div class="zn-veil" aria-hidden="true"></div>
+{% endblock %}
+{% block contenido %}
+<section class="zn-hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-xl-8">
+        <span class="zn-kicker zn-enter" style="--i:0"><span class="zn-dot"></span> Estudio digital · catálogo abierto</span>
+        <h1 class="zn-wordmark zn-enter" style="--i:1">ZENNTIES</h1>
+        <p class="zn-tagline zn-enter" style="--i:2">Creamos lo que tú solo imaginas: páginas web, juegos y diseños de interfaz listos para elegir y agregar a tu carrito.</p>
+        <div class="d-flex flex-wrap gap-3 mt-4 zn-enter" style="--i:3">
+          <a class="btn btn-zn btn-lg" href="{{ url_for('tienda') }}">Ver la tienda</a>
+          <a class="btn btn-ghost btn-lg" href="{{ url_for('register') }}">Crear cuenta</a>
+          <a class="btn btn-ghost btn-lg" href="{{ url_for('login') }}">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 zn-offers">
+      {% set ofertas = [
+        ('web', 'Páginas web', 'Landings, portafolios y tiendas'),
+        ('juego', 'Juegos', 'Arcade y trivias para el navegador'),
+        ('ui', 'Diseños de interfaz', 'Kits y pantallas para apps')
+      ] %}
+      {% for clave, titulo, texto in ofertas %}
+      <div class="col-md-4 zn-enter" style="--i:{{ 4 + loop.index0 }}">
+        <a class="zn-card zn-offer" href="{{ url_for('tienda') }}">
+          <span class="ico zn-art cat-{{ clave }}" style="aspect-ratio:1">{{ icono(clave, 28) }}</span>
+          <span class="txt"><strong>{{ titulo }}</strong><span>{{ texto }}</span></span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block pie %}{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/fondo-grid.js') }}"></script>{% endblock %}

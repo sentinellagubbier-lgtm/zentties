@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Comunidad | ZENNTIES</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/legacy/inicio.css') }}"
+    >
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legacy/extra.css') }}">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('portada') }}" class="logo">
+            ZENNTIES
+        </a>
+
+        <nav class="legacy-nav">
+            <a href="{{ url_for('tienda') }}" class="profile-link">Tienda</a>
+            <a href="{{ url_for('inicio') }}" class="profile-link">Catálogo</a>
+            <a href="{{ url_for('ver_carrito') }}" class="profile-link">Carrito{% if carrito_total %} ({{ carrito_total }}){% endif %}</a>
+              <a
+                href="/perfil"
+                class="profile-link"
+             >
+             Mi perfil
+            </a>
+            <button
+                id="botonCerrarSesion"
+                class="logout-button"
+                type="button"
+            >
+                Cerrar sesión
+            </button>
+        </nav>
+
+    </header>
+
+<main class="feed-page">
+
+    <!-- =========================================
+         FEED PRINCIPAL
+    ========================================== -->
+
+    <section class="feed-column">
+
+        <div class="feed-header">
+
+            <div>
+                <span class="feed-kicker">
+                    Inicio
+                </span>
+
+                <h1>
+                    Para ti
+                </h1>
+
+                <p>
+                    Descubre lo que está compartiendo
+                    la comunidad de ZENNTIES.
+                </p>
+            </div>
+
+            <button
+                id="recargarFeed"
+                class="refresh-feed-button"
+                type="button"
+                aria-label="Actualizar publicaciones"
+                title="Actualizar publicaciones"
+            >
+                ↻
+            </button>
+
+        </div>
+
+
+        <!-- Aquí JavaScript colocará las publicaciones -->
+
+        <div
+            id="feedPublicaciones"
+            class="feed-list"
+        >
+            <div class="feed-loading">
+
+                <span class="feed-loading-icon">
+                    ✦
+                </span>
+
+                <p>
+                    Cargando publicaciones...
+                </p>
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         COLUMNA LATERAL
+    ========================================== -->
+
+    <aside class="feed-sidebar">
+
+        <section class="sidebar-card">
+
+            <span class="sidebar-label">
+                ZENNTIES
+            </span>
+
+            <h2>
+                Descubrir
+            </h2>
+
+            <p>
+                Encuentra nuevos usuarios y contenido
+                de la comunidad.
+            </p>
+
+            <div
+                id="usuariosSugeridos"
+                class="suggested-users"
+            >
+                <p class="sidebar-loading">
+                    Cargando sugerencias...
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="sidebar-card">
+
+            <h2>
+                Tu cuenta
+            </h2>
+
+            <p
+                id="informacionUsuario"
+                class="user-message"
+            >
+                Comprobando tu sesión...
+            </p>
+
+            <a
+                href="/perfil"
+                class="sidebar-profile-button"
+            >
+                Ver mi perfil
+            </a>
+
+        </section>
+
+    </aside>
+
+</main>
+
+    <script
+        type="module"
+        src="{{ url_for('static', filename='js/inicio.js') }}"
+    ></script>
+
+</body>
+
+</html>

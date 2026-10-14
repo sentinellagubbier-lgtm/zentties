@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "_iconos.html" import icono %}
+{% block titulo %}Editar producto · ZENNTIES{% endblock %}
+{% block contenido %}
+<section class="zn-section">
+  <div class="container" style="max-width: 720px">
+    <span class="zn-kicker zn-enter" style="--i:0">{{ icono('editar', 16) }} Edición</span>
+    <h1 class="zn-page-title zn-enter" style="--i:1">Editar producto</h1>
+    <div class="zn-card p-4 p-md-5 mt-4 zn-enter" style="--i:2">
+      <form method="post" action="{{ url_for('editar', id=alumno._id) }}">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Producto</label>
+          <input id="nombre" name="nombre" class="form-control" value="{{ alumno.nombre }}" required maxlength="80">
+        </div>
+        <div class="mb-3">
+          <label for="categoria" class="form-label">Categoría</label>
+          <input id="categoria" name="categoria" class="form-control" value="{{ alumno.categoria }}" required maxlength="20" list="sugerencias" autocomplete="off">
+          <datalist id="sugerencias">{% for c in categorias %}<option value="{{ c }}">{% endfor %}</datalist>
+        </div>
+        <div class="mb-4">
+          <label for="estado" class="form-label">Estado</label>
+          <select id="estado" name="estado" class="form-select" required>
+            <option value="">Selecciona</option>
+            {% for opcion in estados %}
+            <option value="{{ opcion }}" {% if alumno.get('estado') == opcion %}selected{% endif %}>{{ opcion }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-zn" type="submit">Guardar cambios</button>
+          <a class="btn btn-ghost" href="{{ url_for('inicio') }}#lista">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

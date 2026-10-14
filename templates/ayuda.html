@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% from "_iconos.html" import icono %}
+{% block titulo %}Ayuda de ZENNTIES{% endblock %}
+{% block contenido %}
+<section class="zn-section">
+  <div class="container" style="max-width: 860px">
+    <span class="zn-kicker zn-enter" style="--i:0">{{ icono('chispa', 16) }} Guía rápida</span>
+    <h1 class="zn-page-title zn-enter" style="--i:1">Ayuda de ZENNTIES</h1>
+    <p class="zn-muted fs-5 zn-enter" style="--i:2">Consulta del {{ fecha }}. Usa solo datos ficticios: todavía no hay inicio de sesión que proteja el catálogo.</p>
+
+    <div class="accordion zn-card mt-4 overflow-hidden zn-enter" style="--i:3" id="pasos">
+      {% set pasos = [
+        ('Agregar un producto', 'En el Catálogo escribe el producto, su categoría y su estado. Después pulsa «Guardar producto».'),
+        ('Editar un producto', 'En la lista pulsa «Editar», cambia los datos y guarda. «Cancelar» regresa sin guardar.'),
+        ('Eliminar pruebas', 'Pulsa «Eliminar» y confirma en la ventana. Solo elimina productos de prueba.'),
+        ('Comprar en la tienda', 'En la Tienda agrega productos disponibles al carrito, cambia cantidades o quítalos. Los agotados no se pueden agregar.'),
+        ('Usar la API', 'Consulta /api/productos para ver los datos en JSON. Con probar_api.py puedes crear, editar y eliminar desde Python.')
+      ] %}
+      {% for titulo, texto in pasos %}
+      <div class="accordion-item" style="background:transparent;border-color:var(--zn-line)">
+        <h2 class="accordion-header">
+          <button class="accordion-button {{ '' if loop.first else 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#p{{ loop.index }}"
+                  aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="p{{ loop.index }}"
+                  style="background:transparent;color:#fff;box-shadow:none">{{ loop.index }}. {{ titulo }}</button>
+        </h2>
+        <div id="p{{ loop.index }}" class="accordion-collapse collapse {{ 'show' if loop.first }}" data-bs-parent="#pasos">
+          <div class="accordion-body zn-muted">{{ texto }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap mt-4">
+      <a class="btn btn-zn" href="{{ url_for('inicio') }}">Ir al catálogo</a>
+      <a class="btn btn-ghost" href="{{ url_for('tienda') }}">Ir a la tienda</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

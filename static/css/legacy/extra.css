@@ -1,0 +1,20 @@
+/* Alinea comunidad y perfil (lógica Supabase intacta) con el tema ZENNTIES */
+body { font-family: "DM Sans", "Poppins", system-ui, sans-serif; }
+.legacy-nav { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+.legacy-nav .profile-link,
+.navbar-actions .nav-link {
+  padding: 0.5rem 0.95rem;
+  color: #c9c4e6;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.legacy-nav .profile-link:hover,
+.navbar-actions .nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+.navbar-actions { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; justify-content: flex-end; }
+.navbar { position: sticky; top: 0; z-index: 50; }
+.logo { font-family: "Iceland", "Poppins", sans-serif; font-size: 1.7rem; letter-spacing: 0.14em; }
+@media (max-width: 700px) {
+  .navbar { padding-top: 10px; padding-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+}

@@ -1,0 +1,80 @@
+{% from "_iconos.html" import icono %}
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06070f">
+  <title>{% block titulo %}ZENNTIES{% endblock %}</title>
+  {% block fuentes %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Iceland&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  {% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/zennties.css') }}">
+  {% block estilos %}{% endblock %}
+</head>
+<body>
+  {% block fondo %}{% endblock %}
+
+  {% block navegacion %}
+  <header class="zn-nav zn-above">
+    <nav class="container navbar navbar-expand-lg py-0" aria-label="Principal">
+      <a class="navbar-brand zn-logo" href="{{ url_for('portada') }}" aria-label="ZENNTIES, ir al inicio">
+        <span class="zn-logo-mark">Z</span>
+        <span class="zn-logo-text">ZENNTIES</span>
+      </a>
+
+      <div class="d-flex align-items-center gap-2 order-lg-3">
+        <a class="zn-cart-btn" href="{{ url_for('ver_carrito') }}" aria-label="Ver carrito">
+          {{ icono('carrito', 21) }}
+          <span id="contadorCarrito" class="zn-cart-count {{ 'is-empty' if not carrito_total }}">{{ carrito_total }}</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse order-lg-2" id="menuPrincipal">
+        <ul class="navbar-nav mx-lg-auto gap-lg-1 mt-3 mt-lg-0">
+          {% set ep = request.endpoint %}
+          <li class="nav-item"><a class="nav-link {{ 'active' if ep == 'tienda' }}" href="{{ url_for('tienda') }}">Tienda</a></li>
+          <li class="nav-item"><a class="nav-link {{ 'active' if ep in ('inicio', 'editar') }}" href="{{ url_for('inicio') }}">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link {{ 'active' if ep == 'comunidad' }}" href="{{ url_for('comunidad') }}">Comunidad</a></li>
+          <li class="nav-item"><a class="nav-link {{ 'active' if ep == 'ayuda' }}" href="{{ url_for('ayuda') }}">Ayuda</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cuenta</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{{ url_for('perfil') }}">Mi perfil</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('login') }}">Iniciar sesión</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('register') }}">Crear cuenta</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  {% endblock %}
+
+  <main class="zn-above">
+    {% block contenido %}{% endblock %}
+  </main>
+
+  {% block modales %}{% endblock %}
+
+  {% block pie %}
+  <footer class="zn-footer zn-above">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+      <span>© {{ anio }} ZENNTIES · creamos lo que tú solo imaginas</span>
+      <span>Demostración con datos ficticios · <a href="{{ url_for('api_productos') }}">API JSON</a></span>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

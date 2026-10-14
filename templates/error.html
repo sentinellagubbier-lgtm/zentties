@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_iconos.html" import icono %}
+{% block titulo %}Algo salió mal · ZENNTIES{% endblock %}
+{% block contenido %}
+<section class="zn-section">
+  <div class="container" style="max-width: 640px">
+    <div class="zn-card zn-empty zn-enter">
+      {{ icono('chispa', 56) }}
+      <h1 class="h3">No pudimos completar la acción</h1>
+      <p class="zn-muted mb-4">{{ mensaje }}</p>
+      <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a class="btn btn-zn" href="{{ url_for('inicio') }}">Volver al catálogo</a>
+        <a class="btn btn-ghost" href="{{ url_for('portada') }}">Ir al inicio</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

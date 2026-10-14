@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block titulo %}Crear cuenta · ZENNTIES{% endblock %}
+{% block fondo %}
+<canvas id="fondoGrid" aria-hidden="true"></canvas>
+<div class="zn-veil" aria-hidden="true"></div>
+{% endblock %}
+{% block navegacion %}{% endblock %}
+{% block pie %}{% endblock %}
+{% block contenido %}
+<section class="zn-auth">
+  <div class="zn-auth-card zn-enter">
+    <a class="zn-logo" href="{{ url_for('portada') }}" aria-label="Volver al inicio">
+      <span class="zn-logo-mark">Z</span><span class="zn-logo-text">ZENNTIES</span>
+    </a>
+    <h1>Crear cuenta</h1>
+    <p class="zn-muted mb-4">Únete a la comunidad de ZENNTIES.</p>
+
+    <form id="form-registro" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="nombreUsuario">Nombre de usuario</label>
+        <input class="form-control" id="nombreUsuario" name="username" type="text" placeholder="tu.usuario" autocomplete="username" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="correo">Correo electrónico</label>
+        <input class="form-control" id="correo" name="email" type="email" placeholder="correo@ejemplo.com" autocomplete="email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="contrasena">Contraseña</label>
+        <input class="form-control" id="contrasena" name="password" type="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="confirmarContrasena">Confirmar contraseña</label>
+        <input class="form-control" id="confirmarContrasena" name="confirmPassword" type="password" placeholder="Repite tu contraseña" autocomplete="new-password" required>
+      </div>
+      <button id="botonRegistro" class="btn btn-zn w-100 btn-lg" type="submit">Crear Cuenta</button>
+      <p id="mensajeRegistro" role="alert" aria-live="polite"></p>
+    </form>
+
+    <p class="text-center mb-0 mt-2 zn-muted">¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Iniciar sesión</a></p>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/fondo-grid.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}

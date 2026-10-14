@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Perfil | ZENNTIES</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/legacy/perfil.css') }}"
+    >
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/legacy/extra.css') }}">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <a href="{{ url_for('portada') }}" class="logo">
+            ZENNTIES
+        </a>
+
+        <nav class="navbar-actions">
+
+            <a href="{{ url_for('tienda') }}" class="nav-link">Tienda</a>
+            <a href="{{ url_for('inicio') }}" class="nav-link">Catálogo</a>
+            <a href="{{ url_for('ver_carrito') }}" class="nav-link">Carrito{% if carrito_total %} ({{ carrito_total }}){% endif %}</a>
+            <a href="{{ url_for('comunidad') }}" class="nav-link">Comunidad</a>
+
+            <button
+                id="botonCerrarSesion"
+                class="logout-button"
+                type="button"
+            >
+                Cerrar sesión
+            </button>
+
+        </nav>
+
+    </header>
+
+    <main class="profile-page">
+
+<section class="profile-card">
+
+<div
+    id="profileBanner"
+    class="profile-banner"
+>
+
+    <img
+        id="imagenBanner"
+        class="banner-image hidden"
+        src=""
+        alt="Banner del usuario"
+    >
+
+    <input
+        id="inputBanner"
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        hidden
+    >
+
+    <button
+        id="cambiarBanner"
+        class="edit-banner-button"
+        type="button"
+    >
+        Cambiar banner
+    </button>
+
+</div>
+
+    <div class="profile-content">
+
+                <div class="avatar-section">
+
+    <div
+        id="avatarUsuario"
+        class="avatar"
+    >
+
+        <span id="inicialAvatar">
+            Z
+        </span>
+
+        <img
+            id="imagenAvatar"
+            class="avatar-image hidden"
+            src=""
+            alt="Avatar del usuario"
+        >
+
+    </div>
+
+    <input
+        id="inputAvatar"
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif"
+        hidden
+    >
+
+    <button
+        id="cambiarAvatar"
+        class="change-avatar-button"
+        type="button"
+    >
+        Cambiar avatar
+    </button>
+
+    <p
+        id="mensajeArchivos"
+        class="upload-message"
+        role="status"
+        aria-live="polite"
+    ></p>
+
+</div>
+
+                <div class="profile-information">
+
+                    <div class="profile-heading">
+
+                        <div>
+
+                            <h1 id="nombreUsuario">
+                                Cargando usuario...
+                            </h1>
+
+                            <p id="correoUsuario">
+                                Cargando correo...
+                            </p>
+
+                        </div>
+
+                        <button
+                            id="editarPerfil"
+                            class="edit-profile-button"
+                            type="button"
+                        >
+                            Editar perfil
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="biografiaUsuario"
+                        class="biography"
+                    >
+                        Todavía no has agregado una biografía.
+                    </p>
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <strong id="contadorPerfilPublicaciones">0</strong>
+                             <p></p>Publicaciones</p>
+                        </div>
+
+                        <div>
+                            <strong>0</strong>
+                            <span>Seguidores</span>
+                        </div>
+
+                        <div>
+                            <strong>0</strong>
+                            <span>Siguiendo</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="posts-section">
+
+            <div class="section-heading">
+
+                <h2>Publicaciones</h2>
+
+                <button
+                    id="crearPublicacion"
+                    class="new-post-button"
+                    type="button"
+                    
+                >
+                    Nueva publicación
+                </button>
+
+            </div>
+
+                <div
+            id="listaPublicaciones"
+            class="posts-list"
+            >
+            <p class="posts-loading">
+            Cargando publicaciones...
+            </p>
+         </div>
+
+        </section>
+
+    </main>
+
+<div
+    id="modalPublicacion"
+    class="modal hidden"
+    aria-hidden="true"
+>
+    <div class="modal-card publication-modal-card">
+
+        <button
+            id="cerrarModalPublicacion"
+            class="close-modal"
+            type="button"
+            aria-label="Cerrar"
+        >
+            ×
+        </button>
+
+        <h2>Nueva publicación</h2>
+
+        <form id="formPublicacion">
+
+            <label for="contenidoPublicacion">
+                ¿Qué deseas compartir?
+            </label>
+
+            <textarea
+                id="contenidoPublicacion"
+                maxlength="1000"
+                placeholder="Escribe algo..."
+            ></textarea>
+
+            <p
+                id="contadorPublicacion"
+                class="counter"
+            >
+                0 / 1000
+            </p>
+
+            <label
+                for="archivoPublicacion"
+                class="file-publication-label"
+            >
+                Seleccionar foto, GIF o video
+            </label>
+
+            <input
+                id="archivoPublicacion"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm"
+                hidden
+            >
+
+            <p
+                id="nombreArchivoPublicacion"
+                class="selected-file-name"
+            >
+                Ningún archivo seleccionado
+            </p>
+
+            <div
+                id="vistaPreviaPublicacion"
+                class="publication-preview hidden"
+            ></div>
+
+            <p
+                id="mensajePublicacion"
+                class="publication-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <button
+                id="botonPublicar"
+                type="submit"
+                class="save-button"
+            >
+                Publicar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+    <div
+        id="modalPerfil"
+        class="modal hidden"
+        aria-hidden="true"
+    >
+
+        <div class="modal-card">
+
+            <button
+                id="cerrarModal"
+                class="close-modal"
+                type="button"
+            >
+                ×
+            </button>
+
+            <h2>Editar perfil</h2>
+
+            <form id="formEditarPerfil">
+
+                <label for="biografiaInput">
+                    Biografía
+                </label>
+
+                <textarea
+                    id="biografiaInput"
+                    maxlength="180"
+                    placeholder="Escribe algo sobre ti..."
+                ></textarea>
+
+                <p
+                    id="contadorBiografia"
+                    class="counter"
+                >
+                    0 / 180
+                </p>
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Guardar cambios
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script
+        type="module"
+        src="{{ url_for('static', filename='js/perfil.js') }}"
+    ></script>
+
+
+
+<script
+    type="module"
+    src="{{ url_for('static', filename='js/publicaciones.js') }}"
+></script>
+
+</body>
+
+</html>

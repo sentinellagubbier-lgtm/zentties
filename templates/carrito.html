@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_iconos.html" import icono %}
+{% block titulo %}Carrito · ZENNTIES{% endblock %}
+{% block contenido %}
+<section class="zn-section">
+  <div class="container" style="max-width: 920px">
+    <span class="zn-kicker zn-enter" style="--i:0">{{ icono('carrito', 16) }} Prueba del CRUD con un segundo recurso</span>
+    <h1 class="zn-page-title zn-enter" style="--i:1">Tu carrito</h1>
+
+    {% if lineas %}
+    <div class="zn-card overflow-hidden mt-4 zn-enter" style="--i:2">
+      <div id="lineasCarrito" data-max="{{ maximo }}">
+        {% for l in lineas %}
+        {% set tipo = l.categoria|tipo %}
+        <div class="zn-line" data-linea="{{ l.id }}">
+          <div class="thumb zn-art cat-{{ tipo }}">{{ icono(tipo, 28) }}</div>
+          <div>
+            <strong class="d-block">{{ l.nombre }}</strong>
+            <span class="zn-muted small">{{ l.categoria }}</span>
+            {% if l.estado != 'Disponible' %}<span class="zn-badge out ms-2">{{ l.estado }}</span>{% endif %}
+          </div>
+          <div class="zn-qty" role="group" aria-label="Cantidad de {{ l.nombre }}">
+            <button type="button" data-qty="-1" aria-label="Menos" {{ 'disabled' if l.cantidad <= 1 }}>−</button>
+            <output aria-live="polite">{{ l.cantidad }}</output>
+            <button type="button" data-qty="1" aria-label="Más" {{ 'disabled' if l.cantidad >= maximo }}>+</button>
+          </div>
+          <button class="btn btn-sm btn-danger-soft zn-line-remove" type="button" data-quitar aria-label="Quitar {{ l.nombre }}">{{ icono('borrar', 17) }}</button>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 p-3 p-md-4" style="background:rgba(255,255,255,.03);border-top:1px solid var(--zn-line)">
+        <span class="fs-5">Artículos: <strong id="totalArticulos">{{ total }}</strong></span>
+        <div class="d-flex gap-2 flex-wrap">
+          <button id="vaciar" class="btn btn-danger-soft" type="button">Vaciar carrito</button>
+          <a class="btn btn-ghost" href="{{ url_for('tienda') }}">Seguir explorando</a>
+          <button class="btn btn-zn" type="button" disabled title="Los cobros se incorporan en una etapa posterior">Pagar · próximamente</button>
+        </div>
+      </div>
+    </div>
+    <p class="zn-muted small mt-3">Cada visitante tiene su propio carrito, guardado en la colección <code>carrito</code> de MongoDB. Todavía no hay precios, pedidos ni cobros.</p>
+    {% else %}
+    <div class="zn-card zn-empty mt-4 zn-enter" style="--i:2">
+      {{ icono('carrito', 56) }}
+      <h2 class="h3">Tu carrito está vacío</h2>
+      <p class="zn-muted mb-4">Agrega una página, un juego o un diseño desde la tienda.</p>
+      <a class="btn btn-zn" href="{{ url_for('tienda') }}">Ir a la tienda</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
